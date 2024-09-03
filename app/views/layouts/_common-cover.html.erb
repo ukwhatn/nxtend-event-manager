@@ -5,7 +5,12 @@
     <%= title %>
   </div>
   <div class="top-text text-center font-size-sm">
-    <%= description1 %><br/>
-    <%= description2 %>
+    <% if defined? description1 %>
+      <%= description1 %>
+    <% end %>
+    <% if defined? description2 %>
+      <br>
+      <%= description2 %>
+    <% end %>
   </div>
 </div>

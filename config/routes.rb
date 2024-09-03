@@ -35,4 +35,5 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+  match '*path', to: "public/common#not_found", via: :all
 end
