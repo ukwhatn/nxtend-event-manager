@@ -6,6 +6,9 @@ class CreateUserLoginTokens < ActiveRecord::Migration[7.2]
       t.datetime :expired_at, null: false
       t.boolean :is_used, null: false, default: false
       t.timestamps
+
+      t.index :discord_id, unique: false
+      t.index :token, unique: true
     end
   end
 end

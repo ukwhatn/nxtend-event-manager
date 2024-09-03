@@ -19,9 +19,12 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_03_094856) do
     t.datetime "end_time", null: false
     t.string "location", null: false
     t.string "attendance_token", null: false
+    t.string "public_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["attendance_token"], name: "index_event_programs_on_attendance_token", unique: true
     t.index ["event_id"], name: "index_event_programs_on_event_id"
+    t.index ["public_id"], name: "index_event_programs_on_public_id", unique: true
   end
 
   create_table "events", force: :cascade do |t|
@@ -32,8 +35,11 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_03_094856) do
     t.datetime "end_at", null: false
     t.datetime "is_cancelled", null: false
     t.string "attendance_token", null: false
+    t.string "public_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["attendance_token"], name: "index_events_on_attendance_token", unique: true
+    t.index ["public_id"], name: "index_events_on_public_id", unique: true
   end
 
   create_table "kc32024_stamp_collects", force: :cascade do |t|
@@ -48,8 +54,10 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_03_094856) do
   create_table "kc32024_stamps", force: :cascade do |t|
     t.string "name", null: false
     t.text "description", null: false
+    t.string "collection_token", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["collection_token"], name: "index_kc32024_stamps_on_collection_token", unique: true
   end
 
   create_table "user_event_attendances", force: :cascade do |t|
@@ -68,6 +76,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_03_094856) do
     t.boolean "is_used", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["discord_id"], name: "index_user_login_tokens_on_discord_id"
+    t.index ["token"], name: "index_user_login_tokens_on_token", unique: true
   end
 
   create_table "user_program_attendances", force: :cascade do |t|
@@ -91,6 +101,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_03_094856) do
     t.string "circle_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["discord_id"], name: "index_users_on_discord_id", unique: true
   end
 
   add_foreign_key "event_programs", "events"

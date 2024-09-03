@@ -11,6 +11,8 @@ class CreateUsers < ActiveRecord::Migration[7.2]
       t.integer :graduation_year, null: true
       t.string :circle_name, null: true
       t.timestamps
+
+      t.index :discord_id, unique: true
     end
   end
 end

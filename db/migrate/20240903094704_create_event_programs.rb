@@ -8,7 +8,11 @@ class CreateEventPrograms < ActiveRecord::Migration[7.2]
       t.datetime :end_time, null: false
       t.string :location, null: false
       t.string :attendance_token, null: false
+      t.string :public_id, null: false
       t.timestamps
+
+      t.index :attendance_token, unique: true
+      t.index :public_id, unique: true
     end
   end
 end
