@@ -1,0 +1,2 @@
+class UserLoginToken < ApplicationRecord
+end
