@@ -11,16 +11,17 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.2].define(version: 2024_09_03_094856) do
-  create_table "event_pragrams", force: :cascade do |t|
+  create_table "event_programs", force: :cascade do |t|
     t.integer "event_id", null: false
-    t.string "name"
-    t.text "description"
-    t.datetime "start_time"
-    t.datetime "end_time"
-    t.string "location"
+    t.string "name", null: false
+    t.text "description", null: false
+    t.datetime "start_time", null: false
+    t.datetime "end_time", null: false
+    t.string "location", null: false
+    t.string "attendance_token", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["event_id"], name: "index_event_pragrams_on_event_id"
+    t.index ["event_id"], name: "index_event_programs_on_event_id"
   end
 
   create_table "events", force: :cascade do |t|
@@ -30,6 +31,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_03_094856) do
     t.datetime "start_at", null: false
     t.datetime "end_at", null: false
     t.datetime "is_cancelled", null: false
+    t.string "attendance_token", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -91,7 +93,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_03_094856) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "event_pragrams", "events"
+  add_foreign_key "event_programs", "events"
   add_foreign_key "kc32024_stamp_collects", "kc32024_stamps"
   add_foreign_key "kc32024_stamp_collects", "users"
   add_foreign_key "user_event_attendances", "events"

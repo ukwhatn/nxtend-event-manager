@@ -7,6 +7,7 @@ class CreateEvents < ActiveRecord::Migration[7.2]
       t.datetime :start_at, null: false
       t.datetime :end_at, null: false
       t.datetime :is_cancelled, null: false, default: false
+      t.string :attendance_token, null: false
       t.timestamps
     end
   end

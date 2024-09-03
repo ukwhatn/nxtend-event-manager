@@ -1,2 +1,0 @@
-class EventPragram < ApplicationRecord
-end

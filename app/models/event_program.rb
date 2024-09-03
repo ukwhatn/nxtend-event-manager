@@ -1,0 +1,2 @@
+class EventProgram < ApplicationRecord
+end
