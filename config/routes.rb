@@ -2,7 +2,6 @@ Rails.application.routes.draw do
   # public/common
   root "public/common#top"
   get "401", to: "public/common#unauthorized"
-  get "404", to: "public/common#not_found"
 
   # public/auth
   post "auth/discord", to: "public/auth#create_token_for_discord"

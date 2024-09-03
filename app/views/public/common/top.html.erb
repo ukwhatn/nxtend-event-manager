@@ -1,2 +1,7 @@
-<h1>Public::Common#top</h1>
-<p>Find me in app/views/public/common/top.html.erb</p>
+<%= render partial: 'layouts/common-cover',
+           locals: {
+             title: 'ログインされていません',
+             description1: '本サイトの利用には、ログインが必要です',
+             description2: 'お手数ですが、再度のログインをお願いいたします'
+           }
+%>

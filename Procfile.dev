@@ -1,2 +1,4 @@
-web: env RUBY_DEBUG_OPEN=true bin/rails server
+web: env RUBY_DEBUG_OPEN=true bin/rails server -p 3000
 css: bun run watch:css
+css: bin/rails dartsass:watch
+livereload: bundle exec guard
