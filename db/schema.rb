@@ -10,9 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_09_03_094856) do
+ActiveRecord::Schema[7.2].define(version: 2024_09_03_094720) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "event_programs", force: :cascade do |t|
-    t.integer "event_id", null: false
+    t.bigint "event_id", null: false
     t.string "name", null: false
     t.text "description", null: false
     t.datetime "start_time", null: false
@@ -33,7 +36,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_03_094856) do
     t.datetime "location", null: false
     t.datetime "start_at", null: false
     t.datetime "end_at", null: false
-    t.datetime "is_cancelled", null: false
+    t.boolean "is_cancelled", default: false, null: false
     t.string "attendance_token", null: false
     t.string "public_id", null: false
     t.datetime "created_at", null: false
@@ -43,8 +46,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_03_094856) do
   end
 
   create_table "kc32024_stamp_collects", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "kc32024_stamp_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "kc32024_stamp_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["kc32024_stamp_id"], name: "index_kc32024_stamp_collects_on_kc32024_stamp_id"
@@ -61,8 +64,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_03_094856) do
   end
 
   create_table "user_event_attendances", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "event_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "event_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["event_id"], name: "index_user_event_attendances_on_event_id"
@@ -81,8 +84,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_03_094856) do
   end
 
   create_table "user_program_attendances", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "event_program_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "event_program_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["event_program_id"], name: "index_user_program_attendances_on_event_program_id"

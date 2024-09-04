@@ -1,7 +1,7 @@
 class UserLoginToken < ApplicationRecord
   validates :discord_id, presence: true
   validates :token, presence: true, uniqueness: true
-  validates :expires_at, presence: true
+  validates :expired_at, presence: true
   validates :is_used, inclusion: { in: [true, false] }
 
   def self.find_by_token(token)
@@ -13,16 +13,22 @@ class UserLoginToken < ApplicationRecord
   end
 
   def is_expired
-    expires_at < Time.now
+    expired_at < Time.now
   end
 
-  def create(discord_id)
+  def self.create_with_token(discord_id)
+    # discord_idが同一で未使用・有効期限内のトークンがあればそれを返す
+    token_data = UserLoginToken.find_by(discord_id: discord_id, is_used: false)
+    return token_data if token_data.present? && !token_data.is_expired
+
+    # discord_idが同一で未使用・有効期限内のトークンがなければ新規作成
     token = SecureRandom.hex(32)
-    expires_at = Time.now + 1.hour
-    UserLoginToken.create(
+    expired_at = Time.now + 1.hour
+    puts "discord_id: #{discord_id}"
+    UserLoginToken.create!(
       discord_id: discord_id,
       token: token,
-      expires_at: expires_at
+      expired_at: expired_at
     )
   end
 

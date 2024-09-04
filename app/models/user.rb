@@ -29,4 +29,12 @@ class User < ApplicationRecord
     "#{last_name_kana} #{first_name_kana}"
   end
 
+  def self.get_user_from_session(session)
+    if session[:user_id].present?
+      User.find_by(id: session[:user_id])
+    else
+      nil
+    end
+  end
+
 end
