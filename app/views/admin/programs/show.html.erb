@@ -1,0 +1,54 @@
+<% if @program.errors.any? %>
+  <div class="alert alert-danger">
+    <ul>
+      <% @program.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<div class="mx-auto" style="max-width: 700px">
+  <%= form_with model: @program, url: admin_program_path(event_public_id: @event.public_id, public_id: @program.public_id) do |f| %>
+    <div class="input-group my-3">
+      <%= f.text_field :name, class: "form-control" %>
+      <%= f.submit "名称更新", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>
+
+<div class="my-5">
+</div>
+
+
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">出席者氏名</th>
+    <th scope="col">出席者メールアドレス</th>
+    <th scope="col">出席日時</th>
+    <th scope="col">操作</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @all_attendances.each do |p| %>
+    <tr>
+      <td>
+        <%= p.user.full_name %>（<%= p.user.full_name_kana %>）
+      </td>
+      <td>
+        <%= p.user.email %>
+      </td>
+      <td>
+        <%= p.created_at.strftime("%Y/%m/%d %H:%M") %>
+      </td>
+      <td>
+        <%= link_to "削除", admin_program_attendee_path(event_public_id: @event.public_id, program_public_id: @program.public_id, id: p.id), class: "btn btn-danger", data: {turbo_method: :delete, turbo_confirm: "削除しますか？"} %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<div class="my-5">
+</div>

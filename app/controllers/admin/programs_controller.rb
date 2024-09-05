@@ -28,7 +28,8 @@ class Admin::ProgramsController < ApplicationController
       return
     end
 
-    @title = "管理：プログラム詳細：#{@program.name}"
+    @title = "管理：プログラム詳細：#{@program.name}（#{@event.name}）"
+    @back_link = admin_event_path(@event.public_id)
     @all_attendances = @program.user_program_attendances
   end
 
@@ -43,6 +44,22 @@ class Admin::ProgramsController < ApplicationController
 
     @program.destroy
     redirect_to admin_event_path(@event.public_id), notice: "プログラムを削除しました"
+  end
+
+  def update
+    @event = Event.find_by(public_id: params[:event_public_id])
+    @program = EventProgram.find_by(public_id: params[:public_id])
+
+    if @event.nil? || @program.nil?
+      redirect_to admin_events_path, alert: "イベントまたはプログラムが見つかりません"
+      return
+    end
+
+    if @program.update(program_params)
+      redirect_to admin_program_path(@event.public_id, @program.public_id), notice: "プログラムを更新しました"
+    else
+      redirect_to admin_program_path(@event.public_id, @program.public_id), alert: "プログラムの更新に失敗しました"
+    end
   end
 
   private

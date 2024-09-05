@@ -2,8 +2,13 @@ class Public::CommonController < ApplicationController
   before_action :set_hide_header
 
   def top
+
     if User.get_user_from_session(session).present?
       redirect_to dashboard_path
+      return
+    end
+    if session[:admin_logged_in].present? && session[:admin_logged_in]
+      redirect_to admin_path
       return
     end
 

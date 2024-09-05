@@ -10,6 +10,8 @@
     <tr>
       <td>
         <%= e.name %>
+        <br>
+        <span class="font-size-xs font-weight-light">受付人数：<%= e.users.count %>名</span>
         <br><br>
         <%= link_to "詳細", admin_event_path(e.public_id), class: "btn btn-primary" %>
       </td>

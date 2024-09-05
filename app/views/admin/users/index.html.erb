@@ -1,0 +1,30 @@
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">名前</th>
+    <th scope="col">メールアドレス</th>
+    <th scope="col">Discord ID</th>
+    <th scope="col">操作</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @users.each do |u| %>
+    <tr>
+      <td>
+        <%= u.full_name %><br>
+        <span class="font-weight-light font-size-sm"><%= u.full_name_kana %></span>
+      </td>
+      <td>
+        <%= u.email %>
+      </td>
+      <td>
+        <%= u.discord_id %>
+      </td>
+      <td>
+        <%= link_to "ログイン", admin_logged_in_as_user_path(u.id), class: "btn btn-primary font-size-sm", data: { "turbo-method" => :post } %>
+        <%= link_to "削除", admin_user_path(u.id), class: "btn btn-danger font-size-sm", data: { "turbo-method" => :delete, "turbo-confirm" => "削除しますか？" } %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

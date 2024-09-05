@@ -6,15 +6,16 @@
   </tr>
   </thead>
   <tbody>
-  <%  @all_programs.each do |p| %>
+  <% @all_programs.each do |p| %>
     <tr>
       <td>
         <%= p.name %> <br><br>
-        <%= link_to  "詳細", admin_program_path(event_public_id: p.event.public_id, public_id: p.public_id), class: "btn btn-primary" %>
-        <%= link_to  "削除", admin_program_path(event_public_id: p.event.public_id, public_id: p.public_id), class: "btn btn-danger", data: {"turbo-method": :delete} %>
+        <%= link_to "詳細", admin_program_path(event_public_id: p.event.public_id, public_id: p.public_id), class: "btn btn-primary" %>
+        <%= link_to "削除", admin_program_path(event_public_id: p.event.public_id, public_id: p.public_id), class: "btn btn-danger", data: { "turbo-method": :delete, "turbo-confirm": "削除しますか？" } %>
       </td>
       <td>
-        <%= image_tag "https://api.qrserver.com/v1/create-qr-code/?size=1000x1000&data=#{events_attendance_url}?token=#{p.attendance_token}", width: "100px" %> <br>
+        <%= image_tag "https://api.qrserver.com/v1/create-qr-code/?size=1000x1000&data=#{events_attendance_url}?token=#{p.attendance_token}", width: "100px" %>
+        <br>
         <%= "#{events_attendance_url}?token=#{p.attendance_token}" %>
       </td>
     </tr>
@@ -49,3 +50,37 @@
     </div>
   <% end %>
 </div>
+
+
+
+<div class="my-5">
+</div>
+
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">氏名</th>
+    <th scope="col">メールアドレス</th>
+    <th scope="col">出席時間</th>
+    <th scope="col">操作</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @event.user_event_attendances.each do |e| %>
+    <tr>
+      <td>
+        <%= e.user.full_name %>（<%= e.user.full_name_kana %>）
+      </td>
+      <td>
+        <%= e.user.email %>
+      </td>
+      <td>
+        <%= e.created_at.strftime("%Y/%m/%d %H:%M:%S") %>
+      </td>
+      <td>
+        <%= link_to "削除", admin_attendee_path(e.event.public_id, e.id), class: "btn btn-danger", data: {turbo_method: :delete, turbo_confirm: "削除しますか？"} %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

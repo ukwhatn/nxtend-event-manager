@@ -1,12 +1,6 @@
 <%= render partial: 'layouts/common-cover',
            locals: {
              title: 'ページが存在しません',
-             description1: '5秒後に前のページに戻ります',
+             description1: '前のページに戻ってください',
            }
 %>
-
-<script>
-    setTimeout(function () {
-        window.history.back();
-    }, 5000);
-</script>

@@ -14,24 +14,21 @@ Rails.application.routes.draw do
   get "sign_up/confirm", to: "public/users#redirect_to_sign_up" # done
   delete "sign_out", to: "public/users#sign_out" # done
 
-  # public/events
-  get "dashboard", to: "public/events#index"
-  get "events/:id", to: "public/events#show"
-
-  # public/programs
-  get "events/:event_id/programs/:id", to: "public/programs#show"
-
   # public/attendances
   get "events/attendance", to: "public/attendances#create"
+
+  # public/events
+  get "dashboard", to: "public/events#index"
+  # get "events/:id", to: "public/events#show"
+
+  # public/programs
+  # get "events/:event_id/programs/:id", to: "public/programs#show"
 
   # admin/auth
   get "admin", to: "admin/common#top" # done
   get "admin/sign_in", to: "admin/auth#new" # done
   post "admin/sign_in", to: "admin/auth#create" # done
   delete "admin/sign_out", to: "admin/auth#destroy" # done
-
-  # admin/users
-  get "admin/users", to: "admin/users#index"
 
   # admin/events
   get "admin/events", to: "admin/events#index" # done
@@ -43,6 +40,16 @@ Rails.application.routes.draw do
   get "admin/events/:event_public_id/programs/:public_id", to: "admin/programs#show", as: :admin_program
   post "admin/events/:event_public_id/programs", to: "admin/programs#create", as: :admin_programs
   delete "admin/events/:event_public_id/programs/:public_id", to: "admin/programs#destroy"
+  patch "admin/events/:event_public_id/programs/:public_id", to: "admin/programs#update"
+
+  # admin/attendees
+  delete "admin/events/:event_public_id/attendees/:id", to: "admin/attendees#destroy_event_attendance", as: :admin_attendee
+  delete "admin/events/:event_public_id/programs/:program_public_id/attendees/:id", to: "admin/attendees#destroy_program_attendance", as: :admin_program_attendee
+
+  # admin/users
+  get "admin/users", to: "admin/users#index", as: :admin_users
+  post "admin/users/:id/sign_in", to: "admin/users#logged_in_as_user", as: :admin_logged_in_as_user
+  delete "admin/users/:id", to: "admin/users#destroy", as: :admin_user
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
