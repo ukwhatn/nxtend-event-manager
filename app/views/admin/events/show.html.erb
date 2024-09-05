@@ -1,0 +1,55 @@
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">名称</th>
+    <th scope="col">出席QR</th>
+  </tr>
+  </thead>
+  <tbody>
+  <%  @all_programs.each do |p| %>
+    <tr>
+      <td>
+        <%= link_to  p.name, admin_program_path(event_public_id: p.event.public_id, public_id: p.public_id) %> <br><br>
+        <%= link_to  "削除", admin_program_path(event_public_id: p.event.public_id, public_id: p.public_id), class: "btn btn-danger", data: {"turbo-method": :delete} %>
+      </td>
+      <td>
+        <%= image_tag "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=#{events_attendance_url}?token=#{p.attendance_token}" %> <br>
+        <%= "#{events_attendance_url}?token=#{p.attendance_token}" %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<div class="my-5">
+</div>
+
+<% if @new_program.errors.any? %>
+  <div class="alert alert-danger">
+    <ul>
+      <% @new_program.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<div class="mx-auto" style="max-width: 700px">
+  <%= form_with model: @new_program, url: admin_programs_path(event_public_id: @event.public_id) do |f| %>
+    <table class="table table-borderless">
+      <tbody>
+      <tr>
+        <td>
+          名称
+        </td>
+        <td>
+          <%= f.text_field :name, class: "form-control", :placeholder => "プログラム名" %>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <div class="mt-4 ms-auto text-center">
+      <%= f.submit "登録", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>

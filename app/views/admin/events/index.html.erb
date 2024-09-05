@@ -1,0 +1,51 @@
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">名称</th>
+    <th scope="col">操作</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @all_events.each do |e| %>
+    <tr>
+      <td><%= e.name %></td>
+      <td>
+        <%= link_to "詳細", admin_event_path(e.public_id), class: "btn btn-primary" %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<div class="my-5">
+</div>
+
+<% if @new_event.errors.any? %>
+  <div class="alert alert-danger">
+    <ul>
+      <% @new_event.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<div class="mx-auto" style="max-width: 700px">
+  <%= form_with model: @new_event, url: admin_events_path do |f| %>
+    <table class="table table-borderless">
+      <tbody>
+      <tr>
+        <td>
+          名称
+        </td>
+        <td>
+          <%= f.text_field :name, class: "form-control", :placeholder => "KC3 20XX" %>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <div class="mt-4 ms-auto text-center">
+      <%= f.submit "登録", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>

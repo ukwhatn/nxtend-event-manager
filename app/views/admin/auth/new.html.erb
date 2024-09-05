@@ -1,0 +1,21 @@
+<div style="max-width: 600px" class="mx-auto">
+  <%= form_with url: admin_sign_in_path do |f| %>
+    <div class="form-label">
+      ユーザ名
+    </div>
+    <div class="input-group">
+      <%= f.text_field :user, class: "form-control" %>
+    </div>
+
+    <div class="form-label mt-3">
+      パスワード
+    </div>
+    <div class="input-group">
+      <%= f.password_field :password, class: "form-control" %>
+    </div>
+
+    <div class="mt-4 ms-auto text-center">
+      <%= f.submit "ログイン", class: "btn btn-primary d-inline-block" %>
+    </div>
+  <% end %>
+</div>
