@@ -9,7 +9,9 @@
   <% @all_programs.each do |p| %>
     <tr>
       <td>
-        <%= p.name %> <br><br>
+        <%= p.name %> <br>
+        <span class="font-size-xs font-weight-light">出席者数：<%= p.users.count %>名</span>
+        <br><br>
         <%= link_to "詳細", admin_program_path(event_public_id: p.event.public_id, public_id: p.public_id), class: "btn btn-primary" %>
         <%= link_to "削除", admin_program_path(event_public_id: p.event.public_id, public_id: p.public_id), class: "btn btn-danger", data: { "turbo-method": :delete, "turbo-confirm": "削除しますか？" } %>
       </td>
