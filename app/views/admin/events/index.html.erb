@@ -2,15 +2,21 @@
   <thead>
   <tr>
     <th scope="col">名称</th>
-    <th scope="col">操作</th>
+    <th scope="col">出席QR</th>
   </tr>
   </thead>
   <tbody>
   <% @all_events.each do |e| %>
     <tr>
-      <td><%= e.name %></td>
       <td>
+        <%= e.name %>
+        <br><br>
         <%= link_to "詳細", admin_event_path(e.public_id), class: "btn btn-primary" %>
+      </td>
+      <td>
+        <%= image_tag "https://api.qrserver.com/v1/create-qr-code/?size=1000x1000&data=#{events_attendance_url}?token=#{e.attendance_token}", width: "100px" %>
+        <br>
+        <%= "#{events_attendance_url}?token=#{e.attendance_token}" %>
       </td>
     </tr>
   <% end %>

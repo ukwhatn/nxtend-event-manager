@@ -35,7 +35,7 @@
           <% end %>
           <% if session[:admin_logged_in] %>
             <%= link_to admin_sign_out_path, class: "navbar-brand", data: { "turbo-method": :delete } do %>
-              <i class="fas fa-sign-out-alt"></i>
+              <i class="fas fa-sign-out"></i>
             <% end %>
           <% end %>
         </div>
@@ -52,6 +52,11 @@
   <% if @title.present? %>
     <div class="page-heading">
       <%= @title %>
+    </div>
+  <% end %>
+  <% if @back_link.present? %>
+    <div class="text-center my-3 font-weight-light font-size-sm">
+      <%= link_to "前のページに戻る", @back_link %>
     </div>
   <% end %>
   <%= yield %>

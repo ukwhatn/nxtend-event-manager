@@ -1,4 +1,5 @@
 class Admin::ProgramsController < ApplicationController
+  before_action :check_admin_logged_in
 
   def create
     @event = Event.find_by(public_id: params[:event_public_id])
@@ -48,5 +49,11 @@ class Admin::ProgramsController < ApplicationController
 
   def program_params
     params.require(:event_program).permit(:name)
+  end
+
+  def check_admin_logged_in
+    unless session[:admin_logged_in].present? && session[:admin_logged_in]
+      redirect_to admin_sign_in_path
+    end
   end
 end

@@ -36,8 +36,8 @@ Rails.application.routes.draw do
   # admin/events
   get "admin/events", to: "admin/events#index" # done
   post "admin/events", to: "admin/events#create" # done
-  get "admin/events/:public_id", to: "admin/events#show", as: :admin_event
-  patch "admin/events/:public_id", to: "admin/events#update"
+  get "admin/events/:public_id", to: "admin/events#show", as: :admin_event # done
+  patch "admin/events/:public_id", to: "admin/events#update" # done
 
   # admin/programs
   get "admin/events/:event_public_id/programs/:public_id", to: "admin/programs#show", as: :admin_program
