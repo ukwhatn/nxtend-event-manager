@@ -10,17 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_09_03_094720) do
+ActiveRecord::Schema[7.2].define(version: 2024_09_05_032335) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "event_programs", force: :cascade do |t|
     t.bigint "event_id", null: false
     t.string "name", null: false
-    t.text "description", null: false
-    t.datetime "start_time", null: false
-    t.datetime "end_time", null: false
-    t.string "location", null: false
     t.string "attendance_token", null: false
     t.string "public_id", null: false
     t.datetime "created_at", null: false
@@ -32,11 +28,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_03_094720) do
 
   create_table "events", force: :cascade do |t|
     t.string "name", null: false
-    t.datetime "description", null: false
-    t.datetime "location", null: false
-    t.datetime "start_at", null: false
-    t.datetime "end_at", null: false
-    t.boolean "is_cancelled", default: false, null: false
     t.string "attendance_token", null: false
     t.string "public_id", null: false
     t.datetime "created_at", null: false
@@ -56,7 +47,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_03_094720) do
 
   create_table "kc32024_stamps", force: :cascade do |t|
     t.string "name", null: false
-    t.text "description", null: false
     t.string "collection_token", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -99,9 +89,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_03_094720) do
     t.string "last_name_kana", null: false
     t.string "first_name_kana", null: false
     t.string "email", null: false
-    t.string "school_name"
-    t.integer "graduation_year"
-    t.string "circle_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["discord_id"], name: "index_users_on_discord_id", unique: true

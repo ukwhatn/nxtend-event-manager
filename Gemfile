@@ -45,6 +45,11 @@ gem "enum_help"
 gem "i18n_generators"
 gem "rails-i18n"
 
+# qr
+gem "rqrcode"
+gem "rqrcode_png"
+gem "chunky_png"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"

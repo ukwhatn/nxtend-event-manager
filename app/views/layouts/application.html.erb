@@ -15,9 +15,51 @@
   <link rel="apple-touch-icon" href="/icon.png">
   <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
   <%= javascript_importmap_tags %>
+  <script src="https://kit.fontawesome.com/de94618f66.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
-<%= yield %>
+<% unless @hide_header %>
+  <header>
+    <nav class="navbar navbar-dark bg-dark">
+      <div class="container justify-content-between">
+        <div></div>
+        <%= link_to root_path, class: "navbar-brand" do %>
+          <%= image_tag asset_path("nxtend-logo-white-nocaption.svg"), height: "30px" %>
+        <% end %>
+        <div>
+          <% if User.get_user_from_session(session).present? %>
+            <%= link_to sign_out_path, class: "navbar-brand", data: { "turbo-method": :delete } do %>
+              <i class="fas fa-sign-out-alt"></i>
+            <% end %>
+          <% end %>
+          <% if session[:admin_logged_in] %>
+            <%= link_to admin_sign_out_path, class: "navbar-brand", data: { "turbo-method": :delete } do %>
+              <i class="fas fa-sign-out-alt"></i>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </nav>
+  </header>
+<% end %>
+<main>
+  <% flash.each do |message_type, message| %>
+    <div class="alert alert-<%= message_type == "alert" ? "danger" : "primary" %> mx-auto" style="max-width: 600px">
+      <%= message %>
+    </div>
+  <% end %>
+  <% if @title.present? %>
+    <div class="page-heading">
+      <%= @title %>
+    </div>
+  <% end %>
+  <%= yield %>
+</main>
+<footer>
+  <div class="footer-copyright">
+    © 2024 NxTEND Specified Nonprofit Corporation
+  </div>
+</footer>
 </body>
 </html>

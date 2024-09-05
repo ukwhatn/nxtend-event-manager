@@ -1,15 +1,12 @@
 class User < ApplicationRecord
   validates :discord_id, presence: true, uniqueness: true
 
-  validates :last_name, presence: true, length: { minimum: 1, maximum: 25 }
-  validates :first_name, presence: true, length: { minimum: 1, maximum: 25 }
-  validates :last_name_kana, presence: true, length: { minimum: 1, maximum: 25 }
-  validates :first_name_kana, presence: true, length: { minimum: 1, maximum: 25 }
+  validates :last_name, presence: true
+  validates :first_name, presence: true
+  validates :last_name_kana, presence: true
+  validates :first_name_kana, presence: true
 
-  validates :email, presence: true, length: { minimum: 1, maximum: 255 }, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
-  validates :school_name, length: { maximum: 255 }
-  validates :graduation_year, numericality: { only_integer: true, greater_than_or_equal_to: 2020, less_than_or_equal_to: 2030 }, allow_nil: true
-  validates :circle_name, length: { maximum: 255 }
+  validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
 
   has_many :user_event_attendances, dependent: :destroy
   has_many :events, through: :user_event_attendances

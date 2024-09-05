@@ -1,2 +1,44 @@
-<h1>Public::Users#new</h1>
-<p>Find me in app/views/public/users/new.html.erb</p>
+<div style="max-width: 600px" class="mx-auto">
+  <!-- error -->
+  <% if @user.errors.any? %>
+    <div class="alert alert-danger">
+      <ul>
+        <% @user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= form_with model: @user, url: sign_up_confirm_path do |f| %>
+    <div class="form-label">
+      氏名
+    </div>
+    <div class="input-group">
+      <%= f.text_field :last_name, class: "form-control", :placeholder => "関西" %>
+      <%= f.text_field :first_name, class: "form-control", :placeholder => "太郎" %>
+    </div>
+
+    <div class="form-label mt-3">
+      氏名フリガナ（全角カタカナ）
+    </div>
+    <div class="input-group">
+      <%= f.text_field :last_name_kana, class: "form-control", :placeholder => "カンサイ" %>
+      <%= f.text_field :first_name_kana, class: "form-control", :placeholder => "タロウ" %>
+    </div>
+
+    <div class="form-label mt-3">
+      メールアドレス
+    </div>
+    <div class="input-group">
+      <%= f.email_field :email, class: "form-control", :placeholder => "user@example.com" %>
+    </div>
+    <div class="form-text">
+      connpass等の予約サイトで登録したメールアドレスを入力してください
+    </div>
+
+    <div class="mt-4 ms-auto text-center">
+      <%= f.submit "ユーザを登録する", class: "btn btn-primary d-inline-block" %>
+    </div>
+  <% end %>
+</div>

@@ -10,7 +10,9 @@ class Public::AuthController < ApplicationController
 
     token_data = UserLoginToken.create_with_token(discord_id.to_i)
 
-    render json: { url: auth_discord_url, token: token_data.token }, status: :created
+    url = auth_discord_url + "?token=" + token_data.token
+
+    render json: { url: url, token: token_data.token }, status: :created
   end
 
   def sign_in_with_discord
@@ -47,7 +49,6 @@ class Public::AuthController < ApplicationController
     end
 
     session[:user_id] = user.id
-
     redirect_to root_path
   end
 end
