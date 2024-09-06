@@ -34,10 +34,10 @@ class Public::AuthController < ApplicationController
       return
     end
 
-    if token_data.is_used
-      render json: { error: "Token has already been used" }, status: :bad_request
-      return
-    end
+    # if token_data.is_used
+    #   render json: { error: "Token has already been used" }, status: :bad_request
+    #   return
+    # end
 
     if token_data.is_expired
       render json: { error: "Token has expired" }, status: :bad_request

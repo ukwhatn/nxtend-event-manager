@@ -18,7 +18,7 @@ class UserLoginToken < ApplicationRecord
 
   def self.create_with_token(discord_id)
     # discord_idが同一で未使用・有効期限内のトークンがあればそれを返す
-    token_data = UserLoginToken.find_by(discord_id: discord_id, is_used: false)
+    token_data = UserLoginToken.find_by(discord_id: discord_id)
     return token_data if token_data.present? && !token_data.is_expired
 
     # discord_idが同一で未使用・有効期限内のトークンがなければ新規作成
