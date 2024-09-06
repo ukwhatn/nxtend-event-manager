@@ -1,4 +1,30 @@
 services:
+  web:
+    build:
+      context: .
+      args:
+        RUBY_VERSION: 3.3.4
+    entrypoint: [ "bin/docker-entrypoint" ]
+    command: bash -c "rm -f tmp/pids/server.pid && bin/rails s -p 3000 -b '0.0.0.0'"
+    volumes:
+      - .:/usr/src/app
+      - bundle:/usr/local/bundle
+    ports:
+      - "127.0.0.1:${PORT}:3000"
+    env_file:
+      - .env
+    environment:
+      - HISTFILE=/usr/src/app/log/.bash_history
+      - RAILS_ENV=production
+      - RAILS_SERVE_STATIC_FILES=true
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - default
+
   db:
     image: postgres:16.4
     env_file:
@@ -6,26 +32,31 @@ services:
     volumes:
       - pg_data:/var/lib/postgresql/data
     restart: always
-    ports:
-      - "127.0.0.1:5432:5432"
     healthcheck:
       test: pg_isready -U postgres
       interval: 2s
       timeout: 5s
       retries: 30
+    networks:
+      - default
 
   redis:
     image: redis:7.4
     volumes:
       - redis_data:/data
-    ports:
-      - "127.0.0.1:6379:6379"
     healthcheck:
       test: redis-cli ping
       interval: 2s
       timeout: 5s
       retries: 30
+    networks:
+      - default
 
 volumes:
   pg_data:
   redis_data:
+  bundle:
+
+networks:
+  default:
+    driver: bridge
