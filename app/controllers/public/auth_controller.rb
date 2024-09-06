@@ -2,6 +2,12 @@ class Public::AuthController < ApplicationController
   skip_before_action :verify_authenticity_token, only: :create_token_for_discord
 
   def create_token_for_discord
+    api_key = ENV["API_KEY"]
+    if params[:api_key] != api_key
+      render json: { error: "Invalid API key" }, status: :unauthorized
+      return
+    end
+
     discord_id = params[:discord_id]
     if discord_id.blank?
       render json: { error: "Discord ID is required" }, status: :bad_request
