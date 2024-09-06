@@ -1,0 +1,91 @@
+<div class="mx-auto w-100" style="max-width: 500px">
+  <div class="text-center">
+    <%= image_tag asset_path("kc3-2024-logo.svg"), width: "90%", style: "max-width: 300px; opacity: 85%", class: "mx-auto mt-3 mb-3" %>
+    <div class="font-weight-regular mb-5">
+      ブース展示 デジタルスタンプラリー
+    </div>
+  </div>
+
+  <div class="bg-light rounded-4 text-center py-4 my-2">
+    <div class="font-weight-semibold">
+      現在の進捗
+    </div>
+    <div class="p-2">
+      <span class="font-size-5xl font-weight-extrabold <%= @is_completed ? 'text-success' : 'text-danger' %>"><%= @user_stamps_count %></span>
+      <span class="font-weight-light">/ <%= @all_stamps_count %></span>
+    </div>
+    <div class="font-size-xs font-weight-bold">
+      <% if @is_completed %>
+        抽選参加権ゲット！残りの時間も是非交流しましょう！
+      <% else %>
+        企業ブースはスタンプ２倍！ あと<%= @threshold - @user_stamps_count %>個集めて抽選に参加しよう！
+      <% end %>
+    </div>
+  </div>
+
+  <% if @is_completed %>
+
+
+    <div class="bg-light rounded-4 text-center py-4 my-2">
+      <div class="font-weight-semibold">
+        抽選番号
+      </div>
+      <div class="p-2">
+        <span class="font-size-5xl font-weight-extrabold text-success"><%= @lottery_number.number %></span>
+      </div>
+      <div class="font-size-xs font-weight-bold">
+        懇親会で上記の番号を使って当選発表を行います！最後までお楽しみに！
+      </div>
+    </div>
+  <% end %>
+
+  <div class="bg-light rounded-4 text-center py-4 my-2">
+    <div class="font-weight-semibold font-size-sm">
+      ブースリスト
+    </div>
+    <table class="table table-borderless table-light mt-3">
+      <tbody>
+      <% @user_required_stamps.each do |s| %>
+        <tr>
+          <td>
+            <i class="fa-solid fa-stamp text-success"></i>
+          </td>
+          <td class="text-success text-start font-weight-extrabold">
+            <%= s.name %>
+          </td>
+        </tr>
+      <% end %>
+      <% @unregistered_required_stamps.each do |s| %>
+        <tr>
+          <td>
+            <i class="fa-regular fa-circle-question text-secondary"></i>
+          </td>
+          <td class="text-secondary text-start">
+            <%= s.name %>
+          </td>
+        </tr>
+      <% end %>
+      <% @user_non_required_stamps.each do |s| %>
+        <tr>
+          <td>
+            <i class="fa-solid fa-stamp text-success"></i>
+          </td>
+          <td class="text-success text-start font-weight-extrabold">
+            <%= s.name %>
+          </td>
+        </tr>
+      <% end %>
+      <% @unregistered_non_required_stamps.each do |s| %>
+        <tr>
+          <td class="text-secondary">
+            <i class="fa-regular fa-circle-question text-secondary"></i>
+          </td>
+          <td class="text-secondary text-start">
+            <%= s.name %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

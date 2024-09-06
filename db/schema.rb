@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_09_05_032335) do
+ActiveRecord::Schema[7.2].define(version: 2024_09_05_181639) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -36,6 +36,14 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_05_032335) do
     t.index ["public_id"], name: "index_events_on_public_id", unique: true
   end
 
+  create_table "kc32024_lottery_numbers", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.integer "number", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_kc32024_lottery_numbers_on_user_id"
+  end
+
   create_table "kc32024_stamp_collects", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "kc32024_stamp_id", null: false
@@ -50,6 +58,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_05_032335) do
     t.string "collection_token", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "is_required", default: false, null: false
     t.index ["collection_token"], name: "index_kc32024_stamps_on_collection_token", unique: true
   end
 
@@ -95,6 +104,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_05_032335) do
   end
 
   add_foreign_key "event_programs", "events"
+  add_foreign_key "kc32024_lottery_numbers", "users"
   add_foreign_key "kc32024_stamp_collects", "kc32024_stamps"
   add_foreign_key "kc32024_stamp_collects", "users"
   add_foreign_key "user_event_attendances", "events"

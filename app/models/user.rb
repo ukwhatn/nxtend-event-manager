@@ -14,6 +14,10 @@ class User < ApplicationRecord
   has_many :user_program_attendances, dependent: :destroy
   has_many :event_programs, through: :user_program_attendances
 
+  has_many :kc32024_stamp_collects, dependent: :destroy
+  has_many :kc32024_stamps, through: :kc32024_stamp_collects
+  has_one :kc32024_lottery_number, dependent: :destroy
+
   def self.find_by_discord_id(discord_id)
     User.find_by(discord_id: discord_id)
   end

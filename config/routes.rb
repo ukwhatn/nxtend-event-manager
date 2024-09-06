@@ -51,6 +51,14 @@ Rails.application.routes.draw do
   post "admin/users/:id/sign_in", to: "admin/users#logged_in_as_user", as: :admin_logged_in_as_user
   delete "admin/users/:id", to: "admin/users#destroy", as: :admin_user
 
+  # special
+  get "special/kc3-2024/stamp-collecting", to: "special/kc3_2024/stamp_collecting#index", as: :special_kc3_2024_stamp_collecting
+  get "special/kc3-2024/stamp-collecting/get", to: "special/kc3_2024/stamp_collecting#get", as: :special_kc3_2024_stamp_collecting_get
+  get "special/kc3-2024/stamp-collecting/admin", to: "special/kc3_2024/stamp_collecting#admin", as: :special_kc3_2024_stamp_collecting_admin
+  post "special/kc3-2024/stamp-collecting/admin", to: "special/kc3_2024/stamp_collecting#admin_create", as: :special_kc3_2024_stamp_collecting_admin_create
+  delete "special/kc3-2024/stamp-collecting/admin/:id", to: "special/kc3_2024/stamp_collecting#admin_destroy", as: :special_kc3_2024_stamp_collecting_admin_destroy
+  patch "special/kc3-2024/stamp-collecting/admin/:id", to: "special/kc3_2024/stamp_collecting#admin_update", as: :special_kc3_2024_stamp_collecting_admin_update
+
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check

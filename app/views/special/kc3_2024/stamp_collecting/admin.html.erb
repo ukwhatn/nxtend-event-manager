@@ -1,0 +1,101 @@
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">名称</th>
+    <th scope="col">必須</th>
+    <th scope="col">操作</th>
+    <th scope="col">QR</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @stamps.each do |s| %>
+    <tr>
+      <td>
+        <%= form_with model: s, url: special_kc3_2024_stamp_collecting_admin_update_path(s.id) do |f| %>
+          <div class="input-group">
+            <%= f.text_field :name, class: "form-control" %>
+            <%= f.submit "更新", class: "btn btn-secondary" %>
+          </div>
+        <% end %>
+      </td>
+      <td>
+        <%= form_with model: s, url: special_kc3_2024_stamp_collecting_admin_update_path(s.id) do |f| %>
+          <div class="input-group">
+            <div class="input-group-text">
+              <%= f.check_box :is_required, class: "form-check-input mt-0" %>
+            </div>
+            <%= f.submit "更新", class: "btn btn-secondary" %>
+          </div>
+        <% end %>
+      </td>
+      <td>
+        <%= link_to "削除", special_kc3_2024_stamp_collecting_admin_destroy_path(s.id), class: "btn btn-danger", data: { "turbo-method" => :delete, "turbo-confirm" => "削除しますか？" } %>
+      </td>
+      <td class="font-size-xs">
+        <%= image_tag "https://api.qrserver.com/v1/create-qr-code/?size=1000x1000&data=#{special_kc3_2024_stamp_collecting_get_url}?token=#{s.collection_token}", width: "20px" %>
+        <br>
+        <%= "#{special_kc3_2024_stamp_collecting_get_url}?token=#{s.collection_token}" %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<div class="my-5">
+</div>
+
+<% if @new_stamp.errors.any? %>
+  <div class="alert alert-danger">
+    <ul>
+      <% @new_stamp.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<div class="mx-auto" style="max-width: 700px">
+  <%= form_with model: @new_stamp, url: special_kc3_2024_stamp_collecting_admin_create_path do |f| %>
+    <div class="input-group my-3">
+      <%= f.text_field :name, class: "form-control", :placeholder => "ブース追加" %>
+      <div class="input-group-text">
+        <%= f.check_box :is_required, class: "form-check-input mt-0" %>
+      </div>
+      <%= f.submit "登録", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>
+
+
+
+<div class="my-5">
+</div>
+
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">抽選番号</th>
+    <th scope="col">氏名</th>
+    <th scope="col">メールアドレス</th>
+    <th scope="col">発行時間</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @lottery_numbers.each do |e| %>
+    <tr>
+      <td>
+        <%= e.number %>
+      </td>
+      <td>
+        <%= e.user.full_name %>（<%= e.user.full_name_kana %>）
+      </td>
+      <td>
+        <%= e.user.email %>
+      </td>
+      <td>
+        <%= e.created_at.strftime("%Y/%m/%d %H:%M:%S") %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
