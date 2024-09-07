@@ -21,6 +21,16 @@ class Public::AuthController < ApplicationController
     render json: { url: url, token: token_data.token }, status: :created
   end
 
+  def sign_in_with_discord_landing
+    token = params[:token]
+    if token.blank?
+      render json: { error: "Token is required" }, status: :bad_request
+      return
+    end
+
+    url = auth_discord_sign_in_url + "?token=" + token
+  end
+
   def sign_in_with_discord
     token = params[:token]
     if token.blank?

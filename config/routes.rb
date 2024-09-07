@@ -5,7 +5,8 @@ Rails.application.routes.draw do
 
   # public/auth
   post "auth/discord", to: "public/auth#create_token_for_discord" # done
-  get "auth/discord", to: "public/auth#sign_in_with_discord" # done
+  get "auth/discord", to: "public/auth#sign_in_with_discord_landing" # done
+  get "auth/discord/sign_in", to: "public/auth#sign_in_with_discord" # done
 
   # public/users
   get "sign_up", to: "public/users#new" # done

@@ -16,7 +16,8 @@
             <%= f.text_field :name, class: "form-control" %>
             <%= f.submit "更新", class: "btn btn-secondary" %>
           </div>
-        <% end %>
+        <% end %><br>
+        <span class="font-size-xs font-weight-light">参加人数：<%= s.users.count %>名</span>
       </td>
       <td>
         <%= form_with model: s, url: special_kc3_2024_stamp_collecting_admin_update_path(s.id) do |f| %>
